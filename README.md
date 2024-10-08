@@ -1,87 +1,99 @@
-Yes, it is possible to publish your `setup.sh` script on GitHub and allow it to be run from any computer. Here's how you can do it using GitHub and a `curl` or `wget` command to easily download and execute your script from anywhere.
+# Node.js Application Scaffold
 
-### Steps to Publish `setup.sh` on GitHub
-
-#### 1. Create a GitHub Repository
-
-1. **Create a new repository on GitHub**:
-   - Go to GitHub and create a new repository (e.g., `node-app-scaffold`).
-   - You can initialize it with a README or leave it empty.
-
-2. **Upload the `setup.sh` script**:
-   - Clone the repository to your local machine if it's empty:
-     ```bash
-     git clone https://github.com/muktadirhossain/node-app-scaffold.git
-     cd node-app-scaffold
-     ```
-   - Copy your `setup.sh` script into the repository folder:
-     ```bash
-     cp /path/to/your/setup.sh ./
-     ```
-   - Add, commit, and push your changes:
-     ```bash
-     git add setup.sh
-     git commit -m "Add setup.sh for Node.js scaffolding"
-     git push origin main
-     ```
-
-#### 2. Make the `setup.sh` Script Executable
-
-1. **Give Execution Permission** (on your machine before pushing):
-   ```bash
-   chmod +x setup.sh
-   ```
-
-2. **Test it Locally**:
-   Make sure it works locally before pushing to GitHub:
-   ```bash
-   ./setup.sh
-   ```
-
-#### 3. Share the Script
-
-Once your script is on GitHub, you can share it and let anyone run it directly from their machine without cloning the repo. You can use either `curl` or `wget` to download and execute the script in one line.
-
-Here’s how to do that:
-
-- **Using `curl`**:
-  ```bash
-  curl -o- https://raw.githubusercontent.com/muktadirhossain/node-app-scaffold/main/setup.sh | bash
-  ```
-
-- **Using `wget`**:
-  ```bash
-  wget -qO- https://raw.githubusercontent.com/muktadirhossain/node-app-scaffold/main/setup.sh | bash
-  ```
-
-### Explanation
-
-- The `curl` or `wget` command downloads the `setup.sh` file from your GitHub repository.
-- The `| bash` part of the command directly pipes the script to `bash` for execution.
-- This allows anyone to run the script from any machine without manually downloading or cloning your repository.
-
-#### 4. Example Workflow
-
-To demonstrate, you could provide instructions like this for users to scaffold their Node.js applications:
-
+## Just Wanna use this Tool ?
+`Run this Command in your terminal`
 ```bash
-curl -o- https://raw.githubusercontent.com/muktadirhossain/node-app-scaffold/main/setup.sh | bash
+curl -s https://raw.githubusercontent.com/muktadirhossain/node-app-scaffold/main/setup.sh -o setup.sh && bash setup.sh
 ```
 
-or
+## Description
 
+This repository contains a bash script that sets up a basic Node.js application scaffold using Express.js. The scaffold follows the MVC (Model-View-Controller) architecture, with support for JWT-based authentication, error handling, rate limiting, and MongoDB integration.
+
+## Features
+
+- **Node.js & Express.js**: A robust foundation for building web applications.
+- **MVC Architecture**: Organizes your application for maintainability and scalability.
+- **JWT Authentication**: Secure user authentication with session management.
+- **Environment Variable Management**: Uses `dotenv` for configuration.
+- **Security Middleware**: Implemented using `helmet`, `cors`, and `express-rate-limit`.
+- **MongoDB Connection**: Integrated with Mongoose for database management.
+- **Logging**: Error logging with customizable logging paths.
+- **Basic Project Structure**: Automatically creates necessary directories and files.
+
+## Installation
+
+To create a new Node.js application scaffold:
+
+1. Open your `terminal`.
+2. `Run` the following command to download and execute the setup script:
 ```bash
-wget -qO- https://raw.githubusercontent.com/muktadirhossain/node-app-scaffold/main/setup.sh | bash
+curl -s https://raw.githubusercontent.com/muktadirhossain/node-app-scaffold/main/setup.sh -o setup.sh && bash setup.sh
+```
+3. **Follow the prompts** to enter your `project name`.
+
+## Usage
+
+Once the setup script completes, you will have a new directory with your project name containing:
+
+- A configured `package.json` file.
+- Folders for MVC structure (`controllers`, `models`, `routes`, etc.).
+- Basic application files (`app.js`, `server.js`).
+- A `.env` file for environment variables.
+- A README file with instructions.
+
+### Run the Application
+
+To run your application:
+
+1. Navigate into your project directory:
+   ```bash
+   cd your-project-name
+   ```
+
+2. Install the necessary dependencies (if not done automatically):
+   ```bash
+   npm install
+   ```
+
+3. Start the application:
+   ```bash
+   npm start
+   ```
+
+## Configuration
+
+### Environment Variables
+
+Configure your application by editing the `.env` file. You can set the following variables:
+
+```env
+APP_URL=http://localhost:3000
+PORT=3000
+MONGO_URI=mongodb://127.0.0.1:27017/your_db_name
+JWT_SECRET=your_jwt_secret_key
+JWT_EXPIRES_IN=1h
 ```
 
-This will automatically download your script from GitHub and execute it, setting up the Node.js app scaffold as you defined in `setup.sh`.
+## Contributing
 
-### Next Steps
+Contributions are welcome! If you have suggestions for improvements or features, please feel free to create an issue or submit a pull request.
 
-1. **Improve the script**:
-   You can keep updating your `setup.sh` script on GitHub, and the latest version will be available for anyone who runs the command.
+## License
 
-2. **Make it cross-platform**:
-   Ensure that your script works on both Linux/Mac and Windows systems (Windows users can run `.sh` scripts via Git Bash or Windows Subsystem for Linux (WSL)).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Let me know if you'd like more guidance on any specific part!
+## Acknowledgments
+
+- [Express.js](https://expressjs.com/) for its robust web framework.
+- [Mongoose](https://mongoosejs.com/) for simplifying MongoDB interactions.
+- [JSON Web Tokens](https://jwt.io/) for secure user authentication.
+```
+
+### How to Customize
+
+- Replace `yourusername` in the `curl` command with your actual GitHub username.
+- Customize the MongoDB URI and JWT secret key in the example `.env` section.
+- Modify the acknowledgments and any additional features as necessary.
+
+This README provides a solid foundation for users to understand how to use your project. Let me know if you'd like to add or modify anything!
