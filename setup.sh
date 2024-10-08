@@ -21,7 +21,7 @@ stop_loader() {
 read -p "Enter your project name: " projectName
 
 # Create project directory
-mkdir $projectName
+mkdir -p $projectName
 cd $projectName
 
 # Initialize npm project

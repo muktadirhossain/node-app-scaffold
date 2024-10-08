@@ -11,7 +11,7 @@ Yes, it is possible to publish your `setup.sh` script on GitHub and allow it to 
 2. **Upload the `setup.sh` script**:
    - Clone the repository to your local machine if it's empty:
      ```bash
-     git clone https://github.com/yourusername/node-app-scaffold.git
+     git clone https://github.com/muktadirhossain/node-app-scaffold.git
      cd node-app-scaffold
      ```
    - Copy your `setup.sh` script into the repository folder:
@@ -46,12 +46,12 @@ Here’s how to do that:
 
 - **Using `curl`**:
   ```bash
-  curl -o- https://raw.githubusercontent.com/yourusername/node-app-scaffold/main/setup.sh | bash
+  curl -o- https://raw.githubusercontent.com/muktadirhossain/node-app-scaffold/main/setup.sh | bash
   ```
 
 - **Using `wget`**:
   ```bash
-  wget -qO- https://raw.githubusercontent.com/yourusername/node-app-scaffold/main/setup.sh | bash
+  wget -qO- https://raw.githubusercontent.com/muktadirhossain/node-app-scaffold/main/setup.sh | bash
   ```
 
 ### Explanation
@@ -65,13 +65,13 @@ Here’s how to do that:
 To demonstrate, you could provide instructions like this for users to scaffold their Node.js applications:
 
 ```bash
-curl -o- https://raw.githubusercontent.com/yourusername/node-app-scaffold/main/setup.sh | bash
+curl -o- https://raw.githubusercontent.com/muktadirhossain/node-app-scaffold/main/setup.sh | bash
 ```
 
 or
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/yourusername/node-app-scaffold/main/setup.sh | bash
+wget -qO- https://raw.githubusercontent.com/muktadirhossain/node-app-scaffold/main/setup.sh | bash
 ```
 
 This will automatically download your script from GitHub and execute it, setting up the Node.js app scaffold as you defined in `setup.sh`.
