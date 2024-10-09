@@ -81,6 +81,19 @@ JWT_SECRET=your_jwt_secret_key
 JWT_EXPIRES_IN=1h
 EOL
 
+# Create .gitignore
+cat <<EOL > .gitignore
+# npm
+node_modules
+package-lock.json
+npm-shrinkwrap.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+EOL
+
 # Create app.js
 cat <<EOL > app.js
 import express from 'express';
