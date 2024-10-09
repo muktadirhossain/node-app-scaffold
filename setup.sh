@@ -367,8 +367,10 @@ const connectDB = async () => {
     config.isConnected = connection.readyState;
 
     console.log('✔️ Connected to DB 👍');
-    console.log('↗️        HOST:', connection.host);
+    console.log('↗️  HOST:', connection.host);
     console.log('↗️  HOST_NAME :', connection.name);
+    console.log('↗️  DB_PORT :', connection.port);
+    
   } catch (error) {
     console.log('Failed to connect DB 💀💀💀');
     console.error(error.message);
