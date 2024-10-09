@@ -70,7 +70,7 @@ npm install express mongoose bcryptjs jsonwebtoken dotenv cors express-rate-limi
 stop_loader
 
 # Create folders for MVC structure, middleware, and config
-mkdir -p controllers models routes utils middlewares logs config
+mkdir -p controllers models routes utils middlewares logs config public
 
 # Create .env file
 cat <<EOL > .env
@@ -87,6 +87,7 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
+import path from 'path';
 import rateLimit from 'express-rate-limit';
 import { errorHandler } from './middlewares/errorHandler.js';
 import authRoutes from './routes/authRoutes.js';
@@ -124,6 +125,10 @@ if (process.env.NODE_ENV === 'development') {
 // Parse JSON request bodies
 app.use(express.json());
 
+// Serve static files from the "public" folder
+const __dirname = path.resolve(); // Get the current directory
+app.use(express.static(path.join(__dirname, 'public'))); // Serve the "public" directory
+
 // Routes
 app.use('/api/v1/auth', authRoutes);
 
@@ -144,11 +149,16 @@ cat <<EOL > server.js
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
 import app from './app.js';
 import { PORT } from './config/constants.js';
 
 // Load environment variables
 dotenv.config();
+
+// Get the current directory path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const port = PORT || 3000;
 
@@ -278,8 +288,13 @@ EOL
 # Create errorHandler.js in middlewares folder
 cat <<EOL > middlewares/errorHandler.js
 import { StatusCodes } from 'http-status-codes';
+import { fileURLToPath } from 'url';
 import fs from 'fs';
 import path from 'path';
+
+// Get the current directory path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const errorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
@@ -287,12 +302,19 @@ export const errorHandler = (err, req, res, next) => {
 
   // Log error in production
   if (process.env.NODE_ENV === 'production') {
-    fs.appendFileSync(path.join(__dirname, '..', 'logs', 'error.log'), \`\${new Date()} - \${err.message}\\n\`);
+    fs.appendFileSync(path.join(__dirname, '..', 'logs', 'error.log'), `${new Date()} - ${err.message}\n \nStack: ${err.stack}\n\n---------------------------- X--------------------------------------- \n\n`);
+
+    return res.status(err.statusCode).json({
+      status: err.status,
+      message: err.message,
+    });
   }
 
-  res.status(err.statusCode).json({
+  return res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
+    stack: err.stack, // Include stack trace in development
+    error: err, // Full error object for development
   });
 };
 EOL
@@ -324,7 +346,7 @@ EOL
 # Create connectDB.js in config folder
 cat <<EOL > config/connectDB.js
 import mongoose from 'mongoose';
-import { PORT, MONGO_URI } from './constants.js';
+import { MONGO_URI } from './constants.js';
 
 const config = {
   isConnected: 0,
@@ -344,11 +366,13 @@ const connectDB = async () => {
     const { connection } = await mongoose.connect(MONGO_URI, options);
     config.isConnected = connection.readyState;
 
-    console.log('-> Connected to DB 👍');
-    console.log('-> connected with Host :', connection.host);
-    console.log('->           host_name :', connection.name);
+    console.log('✔️ Connected to DB 👍');
+    console.log('↗️        HOST:', connection.host);
+    console.log('↗️  HOST_NAME :', connection.name);
   } catch (error) {
-    console.log('Failed to connect DB::', error);
+    console.log('Failed to connect DB 💀💀💀');
+    console.error(error.message);
+    throw new Error(error);
   }
 };
 
