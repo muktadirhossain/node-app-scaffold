@@ -163,7 +163,7 @@ const __dirname = path.dirname(__filename);
 const port = PORT || 3000;
 
 const server = app.listen(port, () => {
-  console.log(\`App running on http://localhost:${port}\`);
+  console.log(\`App running on http://localhost:\${port}\`);
 });
 
 // Error logging for production
@@ -302,7 +302,7 @@ export const errorHandler = (err, req, res, next) => {
 
   // Log error in production
   if (process.env.NODE_ENV === 'production') {
-    fs.appendFileSync(path.join(__dirname, '..', 'logs', 'error.log'), `${new Date()} - ${err.message}\n \nStack: ${err.stack}\n\n---------------------------- X--------------------------------------- \n\n`);
+    fs.appendFileSync(path.join(__dirname, '..', 'logs', 'error.log'), \`\${new Date()} - \${err.message}\n \nStack: \${err.stack}\n\n---------------------------- X--------------------------------------- \n\n\`);
 
     return res.status(err.statusCode).json({
       status: err.status,
